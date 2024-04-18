@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nasa_pictures/app/data/data_source/pictures/get_pictures_data_source_imp.dart';
 import 'package:nasa_pictures/app/features/pictures_list/view/pictures_list_view.dart';
 import 'package:nasa_pictures/app/features/pictures_list/view_model/pictures_list_view_model.dart';
+import 'package:nasa_pictures/app/use_case/pictures_use_case.dart';
 import 'package:provider/provider.dart';
 
 import '../data/repository/pictures/pictures_repository_imp.dart';
@@ -19,9 +20,15 @@ class AppModule extends Module {
             () => PicturesRepositoryImp(
             dataSource: Modular.get<GetPicturesDataSourceImp>()));
 
+    //USECASE
+    i.add<PicturesUseCase>(
+            () => PicturesUseCase(
+            picturesRepository: Modular.get<PicturesRepositoryImp>()));
+
+
     //VIEWMODEL
     i.add<PicturesListViewModel>(
-            () => PicturesListViewModel());
+            () => PicturesListViewModel(picturesUseCase: Modular.get<PicturesUseCase>()));
 
   }
 
