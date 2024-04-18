@@ -1,9 +1,9 @@
-class PictureResponseModel {
+class PictureRequestModel {
   String? startDate;
 
-  PictureResponseModel({this.startDate});
+  PictureRequestModel({this.startDate});
 
-  PictureResponseModel.fromJson(Map<String, dynamic> json) {
+  PictureRequestModel.fromJson(Map<String, dynamic> json) {
     startDate = json['start_date'];
   }
 

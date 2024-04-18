@@ -1,3 +1,3 @@
 abstract class PicturesRepository {
-  void getPictures(String? startingDate);
+  Future<void> getPictures(String? startingDate);
 }
