@@ -6,8 +6,13 @@ class PicturesUseCase {
 
   PicturesRepositoryImp picturesRepository;
   List<PictureResponseModel> get pictures => picturesRepository.pictures;
+  PictureResponseModel? get selectedPicture => picturesRepository.selectedPicture;
 
   Future<void> getPictures() async {
     await picturesRepository.getPictures('2024-04-01');
+  }
+
+  void selectPicture(PictureResponseModel selectPicture) {
+    picturesRepository.selectPicture(selectPicture);
   }
 }
