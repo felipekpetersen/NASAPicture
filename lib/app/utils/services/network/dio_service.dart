@@ -1,15 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:nasa_pictures/app/utils/constants/app_strings.dart';
 import 'package:nasa_pictures/app/utils/services/network/dio_interceptor.dart';
 
 
 enum RequestError {
   unknown, timeout, wrongParameters, notAuth
-}
-
-enum RequestBaseURL {
-  onboarding, balance, withdraw, tokenValidator
 }
 
 sealed class Result<S, E extends RequestError> {
@@ -68,7 +63,6 @@ class DioHelper {
     } on DioException catch(e) {
       e.response?.statusCode;
       return _handleError(e.response?.statusCode, path);
-      // return Failure(RequestError.unknown);
     }
   }
 
