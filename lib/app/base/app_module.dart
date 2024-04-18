@@ -19,6 +19,10 @@ class AppModule extends Module {
             () => PicturesRepositoryImp(
             dataSource: Modular.get<GetPicturesDataSourceImp>()));
 
+    //VIEWMODEL
+    i.add<PicturesListViewModel>(
+            () => PicturesListViewModel());
+
   }
 
   @override
