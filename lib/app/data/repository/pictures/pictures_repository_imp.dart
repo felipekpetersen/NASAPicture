@@ -9,6 +9,8 @@ class PicturesRepositoryImp implements PicturesRepository {
   final GetPicturesDataSource dataSource;
 
   List<PictureResponseModel> pictures = [];
+  PictureResponseModel? _selectedPicture;
+  PictureResponseModel? get selectedPicture => _selectedPicture;
 
   @override
   Future<void> getPictures(String? startingDate) async {
@@ -22,8 +24,11 @@ class PicturesRepositoryImp implements PicturesRepository {
           print(err);
         }
       case Failure(exception: final exception):
-
     }
+  }
+
+  selectPicture(PictureResponseModel selectPicture) {
+    _selectedPicture = selectPicture;
   }
 
 }
