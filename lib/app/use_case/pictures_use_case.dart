@@ -6,6 +6,7 @@ class PicturesUseCase {
 
   PicturesRepositoryImp picturesRepository;
   List<PictureResponseModel> get pictures => picturesRepository.pictures;
+  List<PictureResponseModel> get filteredPicture => picturesRepository.filteredPictures;
   PictureResponseModel? get selectedPicture => picturesRepository.selectedPicture;
 
   Future<void> getPictures() async {
@@ -14,5 +15,9 @@ class PicturesUseCase {
 
   void selectPicture(PictureResponseModel selectPicture) {
     picturesRepository.selectPicture(selectPicture);
+  }
+
+  void searchPicture(String value) {
+    picturesRepository.searchPicture(value);
   }
 }

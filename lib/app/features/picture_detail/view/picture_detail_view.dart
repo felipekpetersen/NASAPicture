@@ -16,7 +16,9 @@ class _PictureDetailViewState extends State<PictureDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Nasa Pictures'),
+      ),
       body: Container(
         margin: const EdgeInsets.all(24),
         child: Column(
