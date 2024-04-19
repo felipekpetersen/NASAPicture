@@ -9,42 +9,45 @@ import 'package:nasa_pictures/app/utils/services/network/dio_service.dart';
 import '../../model/picture_response_model.dart';
 
 class PicturesRepositoryImp implements PicturesRepository {
-  PicturesRepositoryImp({required this.dataSource, required this.localDataSource});
+  PicturesRepositoryImp(
+      {required this.dataSource, required this.localDataSource});
   final GetPicturesDataSource dataSource;
   final LocalGetPicturesDataSource localDataSource;
 
   List<PictureResponseModel> pictures = [];
+  List<PictureResponseModel> filteredPictures = [];
   PictureResponseModel? _selectedPicture;
   PictureResponseModel? get selectedPicture => _selectedPicture;
   String startingDate = DateService.today;
 
-
   @override
   Future<void> getPictures() async {
-    final cacheDuration = AppStringsController.getString(AppStrings.cacheDuration);
+    final cacheDuration =
+        AppStringsController.getString(AppStrings.cacheDuration);
 
-    if(cacheDuration != null && !DateService.isLaterThanToday(cacheDuration)) {
+    if (cacheDuration != null && !DateService.isLaterThanToday(cacheDuration)) {
       await getPicturesFromLocal();
     } else {
       await getPicturesFromRemote();
     }
-
   }
 
   getPicturesFromRemote() async {
     final date = DateService.tenDaysAgo(startingDate);
     final result = await dataSource.getPictures(date);
 
-    switch(result) {
+    switch (result) {
       case Success(value: final success):
         try {
-          pictures = List<PictureResponseModel>.from(success.data.map((x) => PictureResponseModel.fromJson(x)))
-              ..reversed.toList();
+          final responsePictures = List<PictureResponseModel>.from(
+              success.data.map((x) => PictureResponseModel.fromJson(x)))
+            ..reversed.toList();
+          pictures.addAll(responsePictures);
           startingDate = date;
-          await AppStringsController.setString(AppStrings.cacheDuration, DateService.today);
+          await AppStringsController.setString(
+              AppStrings.cacheDuration, DateService.today);
           HiveService.addToBox(pictures, AppStrings.picturesBox);
-
-        } catch(err) {
+        } catch (err) {
           await getPicturesFromLocal();
         }
       case Failure(exception: final exception):
@@ -60,4 +63,15 @@ class PicturesRepositoryImp implements PicturesRepository {
     _selectedPicture = selectPicture;
   }
 
+  searchPicture(String value) {
+    filteredPictures.clear();
+    if (value != '') {
+      for (PictureResponseModel picture in pictures) {
+        if (picture.title != null &&
+            picture.title!.toLowerCase().contains(value.toLowerCase())) {
+          filteredPictures.add(picture);
+        }
+      }
+    }
+  }
 }
