@@ -9,7 +9,7 @@ class PicturesUseCase {
   PictureResponseModel? get selectedPicture => picturesRepository.selectedPicture;
 
   Future<void> getPictures() async {
-    await picturesRepository.getPictures('2024-04-01');
+    await picturesRepository.getPictures();
   }
 
   void selectPicture(PictureResponseModel selectPicture) {

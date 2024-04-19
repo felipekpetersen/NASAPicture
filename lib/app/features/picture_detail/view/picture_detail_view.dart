@@ -25,6 +25,8 @@ class _PictureDetailViewState extends State<PictureDetailView> {
             const SizedBox(height: 16,),
             CachedImage(url: widget.viewModel.selectedPicture?.url ?? "", height: 200, width: MediaQuery.of(context).size.width),
             const SizedBox(height: 16,),
+            Text(widget.viewModel.selectedPicture?.date ?? ''),
+            const SizedBox(height: 16,),
             Text(widget.viewModel.selectedPicture?.explanation ?? '')
           ],
         ),
