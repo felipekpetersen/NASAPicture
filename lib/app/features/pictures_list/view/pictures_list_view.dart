@@ -36,10 +36,11 @@ class _PicturesListViewState extends State<PicturesListView> {
 
   Widget item(PictureResponseModel item) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: () => widget.viewModel.onTapPicture(item),
       child: Row(
         children: [
-          CachedImage(url: item.url ?? "", height: 50, width: 50),
+          CachedImage(url: item.url ?? "", height: 100, width: 100),
           Flexible(
               child: Container(
             margin: const EdgeInsets.all(16),

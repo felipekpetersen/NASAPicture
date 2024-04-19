@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../../../utils/services/network/dio_service.dart';
+import '../../../../utils/services/network/dio_service.dart';
 
 abstract class GetPicturesDataSource {
 

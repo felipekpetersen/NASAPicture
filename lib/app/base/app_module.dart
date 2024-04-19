@@ -1,6 +1,7 @@
 
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:nasa_pictures/app/data/data_source/pictures/get_pictures_data_source_imp.dart';
+import 'package:nasa_pictures/app/data/data_source/local/pictures/local_get_pictures_data_source_imp.dart';
+import 'package:nasa_pictures/app/data/data_source/remote/pictures/get_pictures_data_source_imp.dart';
 import 'package:nasa_pictures/app/features/picture_detail/view/picture_detail_view.dart';
 import 'package:nasa_pictures/app/features/picture_detail/view_model/picture_detail_view_model.dart';
 import 'package:nasa_pictures/app/features/pictures_list/view/pictures_list_view.dart';
@@ -16,11 +17,12 @@ class AppModule extends Module {
   void binds(i) {
     //DATASOURCE
     i.addSingleton<GetPicturesDataSourceImp>(GetPicturesDataSourceImp.new);
+    i.addSingleton<LocalGetPicturesDataSourceImp>(LocalGetPicturesDataSourceImp.new);
 
     //REPOSITORY
     i.addSingleton<PicturesRepositoryImp>(
             () => PicturesRepositoryImp(
-            dataSource: Modular.get<GetPicturesDataSourceImp>()));
+            dataSource: Modular.get<GetPicturesDataSourceImp>(), localDataSource: Modular.get<LocalGetPicturesDataSourceImp>()));
 
     //USECASE
     i.addSingleton<PicturesUseCase>(
