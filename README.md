@@ -28,3 +28,10 @@ Tools • Dart 3.3.3 • DevTools 2.31.1
 - [shared_preferences](https://pub.dev/packages/shared_preferences)
 
 Note: SharedPreferences is not a good option for security reasons. We should use flutter_secure_storage instead. But, as this is a training project and does not contain sensitive data, I chose SharedPreferences over flutter_secure_storage because flutter_secure_storage can have some problems depending on the configs while running on emulators/simulators ([like this one](https://github.com/mogol/flutter_secure_storage/issues/391)). The logical behing using SharedPreferences and flutter_secure_storage is exactly the same, with few adaptations on code. 
+
+## Business rules and design decisions
+- Load first 10 itens/pictures
+- if has on cache, load from cache. If no cache pictures are found, load from remote and save to Hive
+- if scroll to bottom, load next 10 items, from local (if possible) or remote and then save to local.
+- Search by date or title. If no items are found, show message.
+- Click a picture/item to see details. 
