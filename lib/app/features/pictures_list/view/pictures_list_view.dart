@@ -6,6 +6,7 @@ import 'package:nasa_pictures/app/data/model/picture_response_model.dart';
 import 'package:nasa_pictures/app/features/pictures_list/view_model/pictures_list_view_model.dart';
 
 import '../../../utils/components/cached_image.dart';
+import '../../../utils/services/pagination_service.dart';
 
 class PicturesListView extends StatefulWidget {
   const PicturesListView({super.key, required this.viewModel});
@@ -16,10 +17,16 @@ class PicturesListView extends StatefulWidget {
 }
 
 class _PicturesListViewState extends State<PicturesListView> {
+  PaginationScrollController paginationScrollController =
+      PaginationScrollController();
+
   @override
   void initState() {
     SchedulerBinding.instance
         .addPostFrameCallback((timeStamp) => widget.viewModel.getPictures());
+    paginationScrollController.init(
+        loadAction: () => widget.viewModel.loadMorePictures());
+
     super.initState();
   }
 
@@ -38,6 +45,8 @@ class _PicturesListViewState extends State<PicturesListView> {
                     ? noResultsSearch
                     : Expanded(
                         child: ListView.builder(
+                            controller:
+                                paginationScrollController.scrollController,
                             shrinkWrap: true,
                             itemCount: widget.viewModel.pictures.length,
                             itemBuilder: (context, index) {
@@ -79,11 +88,20 @@ class _PicturesListViewState extends State<PicturesListView> {
       child: Row(
         children: [
           CachedImage(url: item.url ?? "", height: 100, width: 100),
-          Flexible(
-              child: Container(
-            margin: const EdgeInsets.all(16),
-            child: Text(item.title ?? ""),
-          )),
+      Flexible(
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+               Container(
+                    margin: const EdgeInsets.all(16),
+                    child: Text(item.title ?? ""),
+                  ),
+              Container(
+                margin: const EdgeInsets.all(16),
+                child: Text(item.date ?? ""),)
+            ],
+          ),)
         ],
       ),
     );

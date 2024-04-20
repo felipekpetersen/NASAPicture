@@ -5,8 +5,10 @@ import 'package:nasa_pictures/app/utils/services/hive/hive_service.dart';
 
 class LocalGetPicturesDataSourceImp implements LocalGetPicturesDataSource {
   @override
-  Future<List<PictureResponseModel>> getPictures() async {
-    return await HiveService.getFromBox(AppStrings.picturesBox);
+  Future<List<PictureResponseModel>> getPictures(int page, int numberOfItemsPerPage) async {
+    final data = await HiveService.getFromBox(AppStrings.picturesBox);
+    final filteredData = data.getRange(page*numberOfItemsPerPage, page*numberOfItemsPerPage + numberOfItemsPerPage);
+    return filteredData.toList();
   }
 
 }

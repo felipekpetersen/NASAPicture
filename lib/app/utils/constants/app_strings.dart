@@ -5,7 +5,7 @@ class AppStrings {
 
   static const baseURL = 'https://api.nasa.gov/';
   static const cacheDuration = 'cache_duration';
-  static const cacheStartingDate = 'cache_starting_date';
+  static const cachePage = 'cache_page';
   static const picturesBox = 'pictures_box';
   //DO NOT USE IN PROD ENVIRONMENT. DEVELOPMENT PURPOSE ONLY.
   static const apiKey = 'aN0r6EcO92ne7rkR8TVVk4zb9y4eJeTCEU4CjxaE';
@@ -30,6 +30,15 @@ class AppStringsController {
     return prefs.setString(key, value);
   }
 
+  static int? getInt(String key, [int? defValue]) {
+    return _prefsInstance!.getInt(key);
+  }
+
+  static Future<bool> setInt(String key, int value) async {
+    var prefs = await _instance;
+    return prefs.setInt(key, value);
+  }
+
   static bool getBool(String key, [bool? defValue]) {
     return _prefsInstance!.getBool(key) ?? defValue ?? false;
   }
@@ -37,6 +46,11 @@ class AppStringsController {
   static Future<bool> setBool(String key, bool value) async {
     var prefs = await _instance;
     return prefs.setBool(key, value);
+  }
+
+  static Future<void> delete(String key) async {
+    var prefs = await _instance;
+    prefs.remove(key);
   }
 
 }
