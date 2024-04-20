@@ -23,8 +23,10 @@ class PicturesListViewModel extends BaseViewModel {
   }
 
   loadMorePictures() async {
-    await picturesUseCase.getPictures();
-    notifyListeners();
+    if (searchController.text == '') {
+      await picturesUseCase.getPictures();
+      notifyListeners();
+    }
   }
 
   onSearch(String value) {

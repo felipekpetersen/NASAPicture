@@ -105,6 +105,9 @@ class PicturesRepositoryImp implements PicturesRepository {
         if (picture.title != null &&
             picture.title!.toLowerCase().contains(value.toLowerCase())) {
           filteredPictures.add(picture);
+        } else if(picture.date != null &&
+            picture.date!.toLowerCase().contains(value.toLowerCase())) {
+          filteredPictures.add(picture);
         }
       }
     }
