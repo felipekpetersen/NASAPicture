@@ -46,4 +46,8 @@ class HiveService {
 
     return boxList;
   }
+
+  static Future<void> delete(String boxName) async {
+    await Hive.deleteBoxFromDisk(boxName);
+  }
 }
