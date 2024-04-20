@@ -1,16 +1,30 @@
 # nasa_pictures
 
-A new Flutter project.
+## About
+Simple Flutter app that shows a list of Nasa Pictures. 
 
-## Getting Started
+Flutter 3.19.5 • channel stable • https://github.com/flutter/flutter.git
 
-This project is a starting point for a Flutter application.
+Tools • Dart 3.3.3 • DevTools 2.31.1
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Architecture 
+<img width="754" alt="Captura de Tela 2024-04-19 às 20 46 12" src="https://github.com/felipekpetersen/NASAPicture/assets/31223287/35286142-d908-40c7-b137-8e6b60378529">
+
+### Layers
+- Data Source: Retrieve data from local or remote Data base. In our case, https://api.nasa.gov
+- Repository: Handle data so it can be use by our app.
+- Use Case: Connects to repository for handling interactions with data.
+- View Model: Builds and provide data to our view. The Provider (`ChangeNotifier`) goes here.
+- View: Shows data from View Model
+
+## Packages used
+- [Dio](https://pub.dev/packages/dio)
+- [Modular](https://pub.dev/packages/flutter_modular): Dependecy Injection and Navigation
+- [Hive](https://pub.dev/packages/hive): Local data source
+- [Provider](https://pub.dev/packages/provider)
+- [cached_network_image](https://pub.dev/packages/cached_network_image)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
+
+Note: SharedPreferences is not a good option for security reasons. We should use flutter_secure_storage instead. But, as this is a training project and does not contain sensitive data, I chose SharedPreferences over flutter_secure_storage because flutter_secure_storage can have some problems depending on the configs while running on emulators/simulators ([like this one](https://github.com/mogol/flutter_secure_storage/issues/391)). The logical behing using SharedPreferences and flutter_secure_storage is exactly the same, with few adaptations on code. 

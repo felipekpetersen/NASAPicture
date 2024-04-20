@@ -1,39 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:nasa_pictures/app/base/app_widget.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'app/base/app_module.dart';
+import 'app/base/app_routes.dart';
+import 'app/utils/constants/app_strings.dart';
+import 'app/utils/services/hive/hive_service.dart';
+import 'app/utils/services/network/dio_service.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Nasa Pictures',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, });
-
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    return const Placeholder();
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppStringsController.init();
+  DioHelper.init();
+  await HiveService.init();
+  Modular.setInitialRoute(AppRoutes.initialRoute);
+  runApp(ModularApp(module: AppModule(), child: const AppWidget()));
 }
